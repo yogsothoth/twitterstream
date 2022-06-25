@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/default.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    socket.on('connect', function() {
+        socket.emit('connect to stream', {data: 'Client connected'});
+    });
+  socket.on('new tweet', function(msg) {
+      console.log('New tweet', msg);
+      var t = JSON.parse(msg);
+      $('#tweets').prepend('<div class="tweet">' + t["text"] + '</div>');
+          });   
+</script>
+<title>Tweeter Stream</title>
+  </head>
+  <body>
+    <h1>Tweeter Stream</h1>
+    <div id="tweets"></div>
+  </body>
+</html>
